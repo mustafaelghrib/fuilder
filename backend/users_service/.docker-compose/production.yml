@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+
+  django:
+    image: users_service_production
+    container_name: users_service_production_django
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: "production"
+    restart: always
+    env_file: ../.env/.env.production
+    ports:
+      - "80:8000"
+    volumes:
+      - ../:/users_service
+    command: sh -c "chmod +x ./entrypoint.sh && sh ./entrypoint.sh"
+
