@@ -1,0 +1,23 @@
+# backend
+poetry.lock
+__pycache__/
+.env
+.static
+.media
+.volumes
+migrations
+!migrations/__init__.py
+.pytest_cache
+.venv
+site
+.cov_html
+.coverage
+
+# infrastructure
+.terraform
+*.lock.hcl
+*.*.hcl
+*.tfstate
+*.backup
+.secrets.auto.tfvars
+.gcp_creds.json
