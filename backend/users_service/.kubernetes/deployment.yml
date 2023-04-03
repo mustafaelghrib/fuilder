@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fuilder-users-service-deployment
+  namespace: fuilder-users-service-namespace
+  labels:
+    app: fuilder-users-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fuilder-users-service
+  template:
+    metadata:
+      labels:
+        app: fuilder-users-service
+    spec:
+      containers:
+        - image: mustafaabdallah/fuilder-users-service:latest
+          name: fuilder-users-service-django
+          command: ["/bin/sh"]
+          args: ["-c", "chmod +x ./entrypoint.sh && sh ./entrypoint.sh"]
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: fuilder-users-service-env-secrets
+          ports:
+            - containerPort: 8000
+              name: gunicorn
