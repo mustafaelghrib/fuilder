@@ -20,3 +20,23 @@ Fuilder infrastructure is built on Google Cloud Platform (GCP) using Terraform
   ```
 
 ---
+
+### Users Service
+- terraform plan
+  ```shell
+  TERRAFORM plan -target="module.users_service"
+  ```
+- terraform apply
+  ```shell
+  TERRAFORM apply -target="module.users_service" --auto-approve
+  ```
+- terraform destroy
+  ```shell
+  TERRAFORM destroy -target="module.users_service" --auto-approve
+  ```
+- terraform output
+  ```shell
+  TERRAFORM output users_service_output
+  ```
+
+---
