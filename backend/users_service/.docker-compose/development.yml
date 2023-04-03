@@ -26,3 +26,12 @@ services:
       - "5433:5432"
     volumes:
       - ../../.volumes/users_service/postgres_data:/var/lib/postgresql/data
+
+  postgres_test:
+    image: postgres:13-alpine
+    container_name: users_service_development_postgres_test
+    env_file: ../.env/.env.development
+    ports:
+      - "5434:5432"
+    volumes:
+      - ../../.volumes/users_service/postgres_test_data:/var/lib/postgresql/data
