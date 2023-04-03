@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+
+  django:
+    image: users_service_development
+    container_name: users_service_development_django
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    restart: always
+    env_file: ../.env/.env.development
+    ports:
+      - "8001:8000"
+    depends_on:
+      - postgres
+    volumes:
+      - ../:/users_service
+    command: sh -c "chmod +x ./entrypoint.sh && sh ./entrypoint.sh"
+
+  postgres:
+    image: postgres:13-alpine
+    container_name: users_service_development_postgres
+    env_file: ../.env/.env.development
+    ports:
+      - "5433:5432"
+    volumes:
+      - ../../.volumes/users_service/postgres_data:/var/lib/postgresql/data
