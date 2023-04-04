@@ -1,0 +1,19 @@
+[run]
+source = .
+omit =
+   *manage.py
+   *conftest.py
+   *urls.py
+   *serializers.py
+   *models.py
+   *tests.py
+   */migrations/*
+   */src/*
+
+   *__init__*
+   */__pycache__/*
+
+[report]
+#fail_under = 100
+show_missing = True
+#skip_covered = True
