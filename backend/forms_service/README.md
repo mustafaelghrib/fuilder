@@ -22,3 +22,14 @@ A service that responsible for managing forms
   docker exec -it forms_service_development_django /bin/bash -c "/opt/venv/bin/pytest --cov=."
   ```
 
+## The Production Environment:
+
+### Run The Backend Locally:
+- Setup and run the [infrastructure](..%2F..%2Finfrastructure%2FREADME.md)
+- Get the environment variables from the infrastructure
+- Copy `.env.sample/.env.production` to `.env/.env.production` and update it.
+- Run The Backend API:
+  ```shell
+  docker compose -f .docker-compose/production.yml up -d --build
+  ```
+
