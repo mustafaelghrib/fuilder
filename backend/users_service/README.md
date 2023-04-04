@@ -62,7 +62,7 @@ A service that responsible for registering, loging and validating users
   ```
 - Launch the app
   ```shell
-  minikube service -n $NAMESPACE --url $PROJECT_NAME
+  minikube service $PROJECT_NAME
   ```
 
 ---
