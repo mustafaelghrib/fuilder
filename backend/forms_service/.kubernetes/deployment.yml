@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fuilder-forms-service-deployment
+  namespace: fuilder-forms-service-namespace
+  labels:
+    app: fuilder-forms-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fuilder-forms-service
+  template:
+    metadata:
+      labels:
+        app: fuilder-forms-service
+    spec:
+      containers:
+        - image: mustafaabdallah/fuilder-forms-service:latest
+          name: fuilder-forms-service-django
+          command: ["/bin/sh"]
+          args: ["-c", "chmod +x ./entrypoint.sh && sh ./entrypoint.sh"]
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: fuilder-forms-service-env-secrets
+          ports:
+            - containerPort: 8000
+              name: gunicorn
