@@ -29,6 +29,8 @@ provider "google" {
 locals {
   project_name = "fuilder"
   users_service = "${local.project_name}-users-service"
+  forms_service = "${local.project_name}-forms-service"
+  form_builder_service = "${local.project_name}-form-builder-service"
 }
 
 variable "database_password" { type = string }
@@ -53,3 +55,23 @@ output "users_service_output" {
   sensitive = true
 }
 
+
+# ---------------
+# Forms Service
+# ---------------
+
+module "forms_service" {
+  source = "./modules/services/forms_service"
+
+  storage_name     = "${local.forms_service}-storage"
+
+  database_instance_name = "${local.forms_service}-database"
+  database_name          = "${local.forms_service}_db"
+  database_username      = "${local.forms_service}_user"
+  database_password      = "${local.forms_service}-${var.database_password}"
+}
+
+output "forms_service_output" {
+  value = module.forms_service
+  sensitive = true
+}
