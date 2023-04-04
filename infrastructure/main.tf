@@ -75,3 +75,24 @@ output "forms_service_output" {
   value = module.forms_service
   sensitive = true
 }
+
+
+# ---------------
+# Form Builder Service
+# ---------------
+
+module "form_builder_service" {
+  source = "./modules/services/form_builder_service"
+
+  storage_name     = "${local.form_builder_service}-storage"
+
+  database_instance_name = "${local.form_builder_service}-database"
+  database_name          = "${local.form_builder_service}_db"
+  database_username      = "${local.form_builder_service}_user"
+  database_password      = "${local.form_builder_service}-${var.database_password}"
+}
+
+output "form_builder_service_output" {
+  value = module.form_builder_service
+  sensitive = true
+}
