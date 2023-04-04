@@ -40,7 +40,6 @@ A service that responsible for registering, loging and validating users
   export PROJECT_NAME=fuilder-users-service;
   export DOCKER_HUB=mustafaabdallah;
   export FINAL_IMAGE=$DOCKER_HUB/$PROJECT_NAME
-  export NAMESPACE="$PROJECT_NAME-namespace"
   ```
 - Build a Docker Image:
   ```shell
@@ -55,33 +54,15 @@ A service that responsible for registering, loging and validating users
   docker run -d -p 80:8000 --env-file .env/.env.production $FINAL_IMAGE \
   /bin/bash -c "chmod +x ./entrypoint.sh && sh ./entrypoint.sh"
   ```
-
-- Create a Namespace
+- Deploy to Kubernetes
   ```shell
-  kubectl create namespace $NAMESPACE
-  ```
-- Create Kubernetes secret from the env file
-  ```shell
-  kubectl create secret generic "$PROJECT_NAME-env-secrets" \
-  --from-env-file=.env/.env.production \
-  --namespace=$NAMESPACE
-  ```
-- Apply Kubernetes deployment and service
-  ```shell
+  kubectl create secret generic "$PROJECT_NAME-env-secrets" --from-env-file=.env/.env.production
   kubectl apply -f .kubernetes/deployment.yml
   kubectl apply -f .kubernetes/service.yml
-  ```
-- Change namespace
-  ```shell
-  kubectl config set-context --current --namespace=$NAMESPACE
   ```
 - Launch the app
   ```shell
   minikube service -n $NAMESPACE --url $PROJECT_NAME
-  ```
-- Delete a Namespace
-  ```shell
-  kubectl delete namespace $NAMESPACE
   ```
 
 ---
